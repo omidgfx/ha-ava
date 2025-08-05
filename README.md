@@ -330,7 +330,7 @@ These scripts run periodically as configured in Keepalived and perform service c
 ### 5.8 Important Configuration Parameter: `nopreempt` and Initial BACKUP State on Both Nodes
 
 - Both nodes are configured with `state BACKUP` in Keepalived, with Node1 priority higher than Node2.
-- The `nopreempt` option is set on both nodes.
+- The `nopreempt` option is set on node1 only.
 
 **Why?**
 
