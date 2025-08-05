@@ -1,0 +1,47 @@
+global_defs {
+    script_user root
+    script_security allow
+    enable_script_security
+    log_file "/var/log/keepalived/keepalived.log"
+}
+
+vrrp_script chk_mysql {
+    script "/etc/keepalived/checks/check_mariadb.sh"
+    interval 5
+    weight -20
+    fall 3
+    rise 2
+}
+
+vrrp_script chk_apache2 {
+    script "/etc/keepalived/checks/check_apache2.sh"
+    interval 5
+    weight -30
+    fall 3
+    rise 2
+}
+
+vrrp_instance VI_1 {
+
+    state BACKUP
+    interface enp0s9
+    virtual_router_id 51
+    priority 90
+    advert_int 1
+    notify /etc/keepalived/notify.sh
+
+    authentication {
+        auth_type PASS
+        auth_pass secret12
+    }
+
+    virtual_ipaddress {
+        192.168.100.200
+    }
+
+    track_script {
+        chk_mysql
+        chk_apache2
+   }
+
+}
