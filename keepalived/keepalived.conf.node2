@@ -21,7 +21,7 @@ vrrp_script chk_apache2 {
     rise 2
 }
 
-vrrp_instance VI_1 {
+vrrp_instance VI_2 {
 
     state BACKUP
     interface enp0s9
